@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blockchain & Career Opportunities - Student Guide</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A comprehensive student-centric guidebook to breaking into Web3. Learn Solidity, smart contract security, build a portfolio, and explore career roles. By Kalyanjit Hatibaruah & Pratibha Das Hatibaruah.">
+    <meta name="keywords" content="blockchain, web3, careers, computer science, solidity, rust, smart contracts, portfolio, kalyanjit hatibaruah, pratibha das hatibaruah">
+    <meta name="author" content="Kalyanjit Hatibaruah & Pratibha Das Hatibaruah">
+    
+    <!-- OpenGraph Social Tags -->
+    <meta property="og:title" content="Blockchain & Career Opportunities: A Student's Guide to Web3">
+    <meta property="og:description" content="Master blockchain fundamentals, write Solidity smart contracts, build a strong portfolio, and land your first job in the Web3 space.">
+    <meta property="og:image" content="/assets/book_front_cover.jpg">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blockchain & Career Opportunities: A Student's Guide to Web3">
+    <meta name="twitter:description" content="Master blockchain fundamentals, write Solidity smart contracts, build a strong portfolio, and land your first job in the Web3 space.">
+    <meta name="twitter:image" content="/assets/book_front_cover.jpg">
+    
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
     <!-- Google Analytics -->
@@ -59,6 +77,21 @@
             </nav>
             
             <div class="sidebar-footer">
+                <!-- User Authentication Panel -->
+                <div id="userProfilePanel" class="user-panel" style="margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                    <button class="signin-btn" id="signInBtn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background-color: var(--code-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; color: var(--text-primary); font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                        <i class="fa-brands fa-google" style="color: #4285F4;"></i>
+                        <span>Sign In with Google</span>
+                    </button>
+                    <div id="userInfoContainer" class="user-info-container" style="display: none; align-items: center; gap: 10px; padding: 4px 0;">
+                        <img id="userAvatar" src="" alt="User Avatar" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color);">
+                        <div class="user-details" style="display: flex; flex-direction: column; text-align: left;">
+                            <span id="userName" style="font-size: 12px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px;">Guest</span>
+                            <button id="signOutBtn" style="background: none; border: none; color: #ef4444; font-size: 11px; text-align: left; cursor: pointer; padding: 0; width: fit-content; font-weight: 600;">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+
                 <button class="pdf-btn" id="downloadPdfBtn" aria-label="Download Book as PDF">
                     <i class="fa-solid fa-file-pdf"></i>
                     <span>Download PDF</span>

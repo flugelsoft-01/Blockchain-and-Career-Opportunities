@@ -1,4 +1,7 @@
-// Book reader application logic
+import { auth, provider, signInWithPopup, signOut } from "./firebase.js";
+import { onAuthStateChanged } from "firebase/auth";
+
+let currentUser = null;
 
 // 1. Chapter list definitions
 const chapters = [
@@ -46,7 +49,7 @@ const printBookWrapper = document.getElementById("printBookWrapper");
 window.addEventListener("DOMContentLoaded", () => {
     initTheme();
     renderChaptersList(chapters);
-    loadChapter(activeChapter.id);
+    routePage(); // history routing
     setupEventListeners();
 });
 
@@ -62,8 +65,10 @@ function renderChaptersList(list) {
         
         const a = document.createElement("a");
         a.textContent = chap.title;
-        a.addEventListener("click", () => {
-            loadChapter(chap.id);
+        a.href = chap.id === "cover" ? "/" : (chap.id === "profile" ? "/profile" : (chap.id === "back" ? "/back" : `/chapter/${chap.id}`));
+        a.addEventListener("click", (e) => {
+            e.preventDefault();
+            routeTo(chap.id);
             if (window.innerWidth <= 992) {
                 sidebarEl.classList.remove("open");
             }
@@ -78,6 +83,44 @@ function renderChaptersList(list) {
 async function loadChapter(id) {
     const chap = chapters.find(c => c.id === id);
     if (!chap) return;
+    
+    // Auth Gating: Only the Cover Page is public
+    if (id !== "cover" && !currentUser) {
+        activeChapter = chap;
+        topNavTitleEl.textContent = chap.title;
+        document.querySelectorAll("#chaptersList li").forEach(li => li.classList.remove("active"));
+        const activeNav = document.getElementById(`nav-${chap.id}`);
+        if (activeNav) activeNav.classList.add("active");
+        
+        bookContentEl.innerHTML = `
+            <div class="auth-gate-container" style="text-align: center; padding: 80px 20px; max-width: 500px; margin: 0 auto;">
+                <i class="fa-solid fa-lock" style="font-size: 60px; color: var(--accent-primary); margin-bottom: 24px;"></i>
+                <h1 style="font-size: 28px; margin-bottom: 12px; color: var(--text-primary);">Premium Content Locked</h1>
+                <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">
+                    This chapter of the guidebook is available exclusively for registered IT students and readers. Sign in with your Google account to unlock full access.
+                </p>
+                <button class="gate-signin-btn" id="gateSignInBtn" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 auto; background-color: var(--accent-primary); border: none; border-radius: 8px; padding: 14px 28px; color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 700; cursor: pointer; transition: background-color 0.2s;">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Sign In with Google</span>
+                </button>
+            </div>
+        `;
+        
+        document.getElementById("gateSignInBtn").addEventListener("click", async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                if (result.user) {
+                    loadChapter(id);
+                }
+            } catch (err) {
+                console.error("Gated sign-in failed:", err);
+            }
+        });
+        
+        readerContainerEl.scrollTop = 0;
+        updateProgressBar();
+        return;
+    }
     
     activeChapter = chap;
     topNavTitleEl.textContent = chap.title;
@@ -268,7 +311,88 @@ function setupEventListeners() {
 
     // PDF Download Event
     downloadPdfBtn.addEventListener("click", downloadBookAsPdf);
+
+    // Auth Listeners
+    document.getElementById("signInBtn").addEventListener("click", async () => {
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (err) {
+            console.error("Sign in error:", err);
+        }
+    });
+
+    document.getElementById("signOutBtn").addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+        } catch (err) {
+            console.error("Sign out error:", err);
+        }
+    });
+
+    // History Popstate Navigation
+    window.addEventListener("popstate", routePage);
 }
+
+// 10.5 HTML5 History SPA Routing
+function routeTo(id) {
+    let path = "/";
+    if (id === "profile") path = "/profile";
+    else if (id === "back") path = "/back";
+    else if (id !== "cover") path = `/chapter/${id}`;
+    
+    history.pushState({}, "", path);
+    loadChapter(id);
+}
+
+function routePage() {
+    const path = window.location.pathname;
+    let id = "cover";
+    if (path === "/profile") {
+        id = "profile";
+    } else if (path === "/back") {
+        id = "back";
+    } else if (path.startsWith("/chapter/")) {
+        id = path.replace("/chapter/", "");
+    }
+    loadChapter(id);
+}
+
+// 10.6 Firebase Authentication State Observer
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    const signInBtn = document.getElementById("signInBtn");
+    const userInfoContainer = document.getElementById("userInfoContainer");
+    const userName = document.getElementById("userName");
+    const userAvatar = document.getElementById("userAvatar");
+    
+    if (user) {
+        signInBtn.style.display = "none";
+        userInfoContainer.style.display = "flex";
+        userName.textContent = user.displayName || "Registered Reader";
+        userAvatar.src = user.photoURL || "https://lh3.googleusercontent.com/a/default-user=s80";
+        
+        // If current page was locked, trigger reload to render content
+        const path = window.location.pathname;
+        let id = "cover";
+        if (path === "/profile") id = "profile";
+        else if (path === "/back") id = "back";
+        else if (path.startsWith("/chapter/")) id = path.replace("/chapter/", "");
+        
+        // Reload page if it's currently showing locked gate screen
+        if (id !== "cover" && bookContentEl.querySelector(".auth-gate-container")) {
+            loadChapter(id);
+        }
+    } else {
+        signInBtn.style.display = "flex";
+        userInfoContainer.style.display = "none";
+        
+        // Redirect to cover if user logged out while on protected content
+        const path = window.location.pathname;
+        if (path !== "/" && path !== "/cover") {
+            routeTo("cover");
+        }
+    }
+});
 
 // 11. Compile Book & Generate PDF
 async function downloadBookAsPdf() {

@@ -681,3 +681,8 @@ p, li, blockquote {
 .print-only {
     display: none;
 }
+
+.signin-btn:hover {
+    border-color: var(--accent-primary) !important;
+    background-color: var(--accent-glow) !important;
+}
