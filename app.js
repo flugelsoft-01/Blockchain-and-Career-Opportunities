@@ -97,7 +97,7 @@ async function loadChapter(id) {
                     <img src="/assets/book_front_cover.jpg" alt="Front Cover" style="max-height: 60vh; width: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 24px; border: 1px solid var(--border-color);">
                     <h1 style="font-size: 38px; margin-bottom: 8px;">Blockchain & Career Opportunities</h1>
                     <h2 style="font-size: 20px; color: var(--accent-primary); border: none; margin-top: 0; padding-bottom: 0;">A Student's Guide to Web3</h2>
-                    <p style="font-size: 18px; margin-top: 30px; font-weight: 600; color: var(--text-secondary);">Kalyanjit Hatibaruah</p>
+                    <p style="font-size: 18px; margin-top: 30px; font-weight: 600; color: var(--text-secondary);">Kalyanjit Hatibaruah &amp; Pratibha Das Hatibaruah</p>
                 </div>
             `;
         } else if (chap.id === "back") {
@@ -106,7 +106,7 @@ async function loadChapter(id) {
                     <h1 style="font-size: 32px; margin-bottom: 24px;">Blockchain & Career Opportunities</h1>
                     <p style="font-size: 16px; line-height: 1.8; margin-bottom: 20px; color: var(--text-secondary);">This guidebook bridges the gap between complex blockchain systems and real-world career pathways, specifically tailored for the next generation of IT students and software engineers.</p>
                     <p style="font-size: 16px; line-height: 1.8; margin-bottom: 32px; color: var(--text-secondary);">From the fundamentals of ledger security to writing Solidity contracts and preparing for developer roles, this book outlines a complete, practical roadmap to breaking into Web3.</p>
-                    <p style="font-size: 18px; font-weight: 600; color: var(--text-primary);">Kalyanjit Hatibaruah</p>
+                    <p style="font-size: 18px; font-weight: 600; color: var(--text-primary);">Kalyanjit Hatibaruah &amp; Pratibha Das Hatibaruah</p>
                     <hr style="border: none; height: 1px; background-color: var(--border-color); margin: 30px 0;">
                     <p style="font-size: 12px; color: var(--text-muted);">First Edition &copy; 2026. All Rights Reserved.</p>
                 </div>
@@ -260,7 +260,7 @@ async function downloadBookAsPdf() {
                 <img src="/assets/book_front_cover.jpg" alt="Front Cover">
                 <h1>Blockchain & Career Opportunities</h1>
                 <h2>A Student's Guide to Web3</h2>
-                <div class="print-author">Kalyanjit Hatibaruah</div>
+                <div class="print-author">Kalyanjit Hatibaruah &amp; Pratibha Das Hatibaruah</div>
             </div>
         `;
         
@@ -286,7 +286,7 @@ async function downloadBookAsPdf() {
                 <h2>Blockchain & Career Opportunities</h2>
                 <p>This guidebook bridges the gap between complex blockchain systems and real-world career pathways, specifically tailored for the next generation of IT students and software engineers.</p>
                 <p>From the fundamentals of ledger security to writing Solidity contracts and preparing for developer roles, this book outlines a complete, practical roadmap to breaking into Web3.</p>
-                <div class="print-author">Kalyanjit Hatibaruah</div>
+                <div class="print-author">Kalyanjit Hatibaruah &amp; Pratibha Das Hatibaruah</div>
                 <div class="back-footer">First Edition &copy; 2026. All Rights Reserved.</div>
             </div>
         `;
