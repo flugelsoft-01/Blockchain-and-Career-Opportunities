@@ -2,6 +2,7 @@
 
 // 1. Chapter list definitions
 const chapters = [
+    { id: "cover", title: "Front Cover", isMeta: true },
     { id: "01", title: "Chapter 1: The Trust Revolution & Why Blockchain is a Hot Career Choice", file: "chapter_01_trust_revolution_and_career.md" },
     { id: "02", title: "Chapter 2: Blockchain Fundamentals Made Easy", file: "chapter_02_blockchain_fundamentals.md" },
     { id: "03", title: "Chapter 3: Basics of Bitcoin, Ethereum, and Smart Contracts", file: "chapter_03_bitcoin_ethereum_smart_contracts.md" },
@@ -11,7 +12,8 @@ const chapters = [
     { id: "07", title: "Chapter 7: Hands-on Learning: Writing Solidity & Building Simple dApps", file: "chapter_07_hands_on_solidity_dapps.md" },
     { id: "08", title: "Chapter 8: How Students Can Build a Strong Portfolio with Projects", file: "chapter_08_building_portfolio.md" },
     { id: "09", title: "Chapter 9: Job Search Strategies: Resumes, Interviews, and Career Growth", file: "chapter_09_job_search_strategies.md" },
-    { id: "10", title: "Chapter 10: 6–12 Month Learning & Career Action Plan + Future Trends", file: "chapter_10_learning_action_plan_future_trends.md" }
+    { id: "10", title: "Chapter 10: 6–12 Month Learning & Career Action Plan + Future Trends", file: "chapter_10_learning_action_plan_future_trends.md" },
+    { id: "back", title: "Back Cover", isMeta: true }
 ];
 
 let activeChapter = chapters[0];
@@ -84,9 +86,36 @@ async function loadChapter(id) {
     const activeNav = document.getElementById(`nav-${chap.id}`);
     if (activeNav) activeNav.classList.add("active");
     
-    bookContentEl.innerHTML = `<div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading Chapter Content...</div>`;
     readerContainerEl.scrollTop = 0;
     updateProgressBar();
+    
+    // Render static covers if isMeta is set
+    if (chap.isMeta) {
+        if (chap.id === "cover") {
+            bookContentEl.innerHTML = `
+                <div class="web-cover-view" style="text-align: center; padding: 20px 0;">
+                    <img src="/assets/book_front_cover.jpg" alt="Front Cover" style="max-height: 60vh; width: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 24px; border: 1px solid var(--border-color);">
+                    <h1 style="font-size: 38px; margin-bottom: 8px;">Blockchain & Career Opportunities</h1>
+                    <h2 style="font-size: 20px; color: var(--accent-primary); border: none; margin-top: 0; padding-bottom: 0;">A Student's Guide to Web3</h2>
+                    <p style="font-size: 18px; margin-top: 30px; font-weight: 600; color: var(--text-secondary);">Kalyanjit Hatibaruah</p>
+                </div>
+            `;
+        } else if (chap.id === "back") {
+            bookContentEl.innerHTML = `
+                <div class="web-cover-view" style="text-align: center; padding: 40px 20px; max-width: 600px; margin: 0 auto;">
+                    <h1 style="font-size: 32px; margin-bottom: 24px;">Blockchain & Career Opportunities</h1>
+                    <p style="font-size: 16px; line-height: 1.8; margin-bottom: 20px; color: var(--text-secondary);">This guidebook bridges the gap between complex blockchain systems and real-world career pathways, specifically tailored for the next generation of IT students and software engineers.</p>
+                    <p style="font-size: 16px; line-height: 1.8; margin-bottom: 32px; color: var(--text-secondary);">From the fundamentals of ledger security to writing Solidity contracts and preparing for developer roles, this book outlines a complete, practical roadmap to breaking into Web3.</p>
+                    <p style="font-size: 18px; font-weight: 600; color: var(--text-primary);">Kalyanjit Hatibaruah</p>
+                    <hr style="border: none; height: 1px; background-color: var(--border-color); margin: 30px 0;">
+                    <p style="font-size: 12px; color: var(--text-muted);">First Edition &copy; 2026. All Rights Reserved.</p>
+                </div>
+            `;
+        }
+        return;
+    }
+    
+    bookContentEl.innerHTML = `<div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading Chapter Content...</div>`;
     
     try {
         const response = await fetch(`/chapters/${chap.file}`);
