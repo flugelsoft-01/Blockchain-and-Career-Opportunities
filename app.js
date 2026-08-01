@@ -3,6 +3,7 @@
 // 1. Chapter list definitions
 const chapters = [
     { id: "cover", title: "Front Cover", isMeta: true },
+    { id: "profile", title: "Author Profiles", isMeta: true },
     { id: "01", title: "Chapter 1: The Trust Revolution & Why Blockchain is a Hot Career Choice", file: "chapter_01_trust_revolution_and_career.md" },
     { id: "02", title: "Chapter 2: Blockchain Fundamentals Made Easy", file: "chapter_02_blockchain_fundamentals.md" },
     { id: "03", title: "Chapter 3: Basics of Bitcoin, Ethereum, and Smart Contracts", file: "chapter_03_bitcoin_ethereum_smart_contracts.md" },
@@ -98,6 +99,30 @@ async function loadChapter(id) {
                     <h1 style="font-size: 38px; margin-bottom: 8px;">Blockchain & Career Opportunities</h1>
                     <h2 style="font-size: 20px; color: var(--accent-primary); border: none; margin-top: 0; padding-bottom: 0;">A Student's Guide to Web3</h2>
                     <p style="font-size: 18px; margin-top: 30px; font-weight: 600; color: var(--text-secondary);">Kalyanjit Hatibaruah &amp; Pratibha Das Hatibaruah</p>
+                </div>
+            `;
+        } else if (chap.id === "profile") {
+            bookContentEl.innerHTML = `
+                <div class="web-profile-view" style="max-width: 800px; margin: 0 auto; padding-bottom: 30px;">
+                    <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center;">Author Profiles</h1>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="/assets/author_profiles.jpg" alt="Authors Portrait" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color);">
+                    </div>
+                    
+                    <div class="profiles-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                        <div class="profile-card" style="background: var(--bg-card); padding: 24px; border-radius: 10px; border: 1px solid var(--border-color);">
+                            <h2 style="font-size: 22px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 10px;">Kalyanjit Hatibaruah</h2>
+                            <p style="font-size: 15px; line-height: 1.6; color: var(--text-secondary);">
+                                Kalyanjit Hatibaruah is a technology leader, blockchain consultant, and academician with over two decades of experience in distributed systems, software architecture, and curriculum design. He has mentored thousands of IT students, founded innovative tech platforms, and led numerous enterprise Web3 integrations globally.
+                            </p>
+                        </div>
+                        <div class="profile-card" style="background: var(--bg-card); padding: 24px; border-radius: 10px; border: 1px solid var(--border-color);">
+                            <h2 style="font-size: 22px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 10px;">Pratibha Das Hatibaruah</h2>
+                            <p style="font-size: 15px; line-height: 1.6; color: var(--text-secondary);">
+                                Pratibha Das Hatibaruah is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             `;
         } else if (chap.id === "back") {
@@ -264,8 +289,30 @@ async function downloadBookAsPdf() {
             </div>
         `;
         
-        // B. Add all 10 chapters
+        // A2. Add Author Profiles Page
+        fullBookHtml += `
+            <div class="print-chapter" style="page-break-after: always; text-align: center;">
+                <h1 style="font-size: 32px; margin-bottom: 24px; color: #000 !important;">About the Authors</h1>
+                <img src="/assets/author_profiles.jpg" alt="Authors Portrait" style="max-height: 40vh; width: auto; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <div style="display: flex; gap: 30px; text-align: left; margin-top: 20px;">
+                    <div style="flex: 1; border-right: 1px solid #ccc; padding-right: 20px;">
+                        <h2 style="font-size: 20px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 5px;">Kalyanjit Hatibaruah</h2>
+                        <p style="font-size: 14px; line-height: 1.6; color: #333 !important;">
+                            Kalyanjit Hatibaruah is a technology leader, blockchain consultant, and academician with over two decades of experience in distributed systems, software architecture, and curriculum design. He has mentored thousands of IT students, founded innovative tech platforms, and led numerous enterprise Web3 integrations globally.
+                        </p>
+                    </div>
+                    <div style="flex: 1;">
+                        <h2 style="font-size: 20px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 5px;">Pratibha Das Hatibaruah</h2>
+                        <p style="font-size: 14px; line-height: 1.6; color: #333 !important;">
+                            Pratibha Das Hatibaruah is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+        
         for (const chap of chapters) {
+            if (chap.isMeta) continue;
             const response = await fetch(`/chapters/${chap.file}`);
             if (!response.ok) throw new Error(`Failed to load ${chap.title}`);
             let markdown = await response.text();
