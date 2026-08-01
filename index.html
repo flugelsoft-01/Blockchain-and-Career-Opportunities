@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain & Career Opportunities - Student Guide</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Code Highlight Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="progressBar"></div>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-cubes logo-icon"></i>
+                    <span>Web3 Careers</span>
+                </div>
+                <button class="mobile-close" id="mobileCloseBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search chapters or topics...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul id="chaptersList">
+                    <!-- Loaded dynamically via app.js -->
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="pdf-btn" id="downloadPdfBtn" aria-label="Download Book as PDF">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Download PDF</span>
+                </button>
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon moon-icon"></i>
+                    <i class="fa-solid fa-sun sun-icon"></i>
+                    <span id="themeToggleText">Light Mode</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Reader Viewport -->
+        <main class="main-content">
+            <header class="top-nav">
+                <button class="mobile-toggle" id="mobileToggleBtn" aria-label="Toggle Navigation Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="chapter-meta">
+                    <span class="category-tag">BOOK READER</span>
+                    <h2 id="topNavChapterTitle">Loading Chapter...</h2>
+                </div>
+            </header>
+
+            <!-- Scrollable Content Container -->
+            <article class="reader-container" id="readerContainer">
+                <div class="sentinel-top"></div>
+                <div class="book-content" id="bookContent">
+                    <!-- Markdown Rendered Here -->
+                </div>
+                <div class="sentinel-bottom"></div>
+            </article>
+        </main>
+    </div>
+    
+    <!-- Print Container for Full PDF Generation -->
+    <div id="printBookWrapper" class="print-only"></div>
+
+    <!-- Markdown Parser CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+    <!-- Code Syntax Highlighter CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Custom Application Logic -->
+    <script type="module" src="/app.js"></script>
+</body>
+</html>

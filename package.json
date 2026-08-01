@@ -1,0 +1,14 @@
+{
+  "name": "blockchain-book-site",
+  "version": "1.0.0",
+  "description": "Browsable website for the Blockchain and Career Opportunities book",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

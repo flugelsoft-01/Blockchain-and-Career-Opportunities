@@ -1,0 +1,683 @@
+/* Design System & Custom Stylesheet */
+
+:root {
+    /* Fonts */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Transition Defaults */
+    --transition-speed: 0.3s;
+    --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Layout Sizes */
+    --sidebar-width: 320px;
+    --topbar-height: 80px;
+}
+
+/* Dark Mode Theme Variables */
+[data-theme="dark"] {
+    --bg-main: #0b0c10;
+    --bg-card: #14161f;
+    --bg-sidebar: #0f1015;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.3);
+    
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    
+    --accent-primary: #6366f1; /* Deep Indigo */
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --cyan-accent: #06b6d4;
+    
+    --tag-bg: rgba(99, 102, 241, 0.1);
+    --tag-color: #818cf8;
+    
+    --code-bg: #1e1e24;
+}
+
+/* Light Mode Theme Variables */
+[data-theme="light"] {
+    --bg-main: #f9fafb;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f3f4f6;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.2);
+    
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    
+    --accent-primary: #4f46e5;
+    --accent-glow: rgba(79, 70, 229, 0.08);
+    --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    --cyan-accent: #0891b2;
+    
+    --tag-bg: rgba(79, 70, 229, 0.08);
+    --tag-color: #4f46e5;
+    
+    --code-bg: #f3f4f6;
+}
+
+/* Global resets & animations */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow: hidden; /* Main window handles layouts, content scrolls inside readers */
+    transition: background-color var(--transition-speed) var(--transition-curve),
+                color var(--transition-speed) var(--transition-curve);
+}
+
+/* Typography Optimizations */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-wrap: balance; /* From Modern Web Guidance: prevent ugly header wrap */
+    line-height: 1.25;
+}
+
+p, li, blockquote {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty; /* From Modern Web Guidance: prevent orphaned words */
+}
+
+/* App Shell Layout */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: transform var(--transition-speed) var(--transition-curve);
+    z-index: 100;
+}
+
+.sidebar-header {
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-icon {
+    font-size: 24px;
+    color: var(--accent-primary);
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+
+.mobile-close {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Search Box Styling */
+.search-box {
+    margin: 20px 24px 10px 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+}
+
+#searchInput {
+    width: 100%;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 12px 12px 40px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transition-speed) var(--transition-curve),
+                box-shadow var(--transition-speed) var(--transition-curve);
+}
+
+#searchInput:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Navigation Lists */
+.sidebar-nav {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 16px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 6px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav li.active a {
+    background-color: var(--accent-glow);
+    color: var(--accent-primary);
+    padding-left: 20px;
+}
+
+.sidebar-nav li.active a {
+    font-weight: 700;
+    border-left: 3px solid var(--accent-primary);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Theme Toggle Button Footer */
+.sidebar-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.theme-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+/* Show/Hide icons based on theme */
+[data-theme="dark"] .moon-icon { display: none; }
+[data-theme="light"] .sun-icon { display: none; }
+
+/* Main Reader Shell */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-main);
+}
+
+/* Top Navigation Bar */
+.top-nav {
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    background-color: rgba(11, 12, 16, 0.7);
+    z-index: 10;
+}
+
+[data-theme="light"] .top-nav {
+    background-color: rgba(249, 250, 251, 0.7);
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.chapter-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-tag {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent-primary);
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+}
+
+#topNavChapterTitle {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Scroll Progress Bar at the top of page */
+#progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--accent-gradient);
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s linear;
+}
+
+/* Reader Container */
+.reader-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 60px 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.book-content {
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Markdown styling inside book container */
+.book-content h1 {
+    font-size: 40px;
+    margin-bottom: 24px;
+    font-weight: 800;
+}
+
+.book-content h2 {
+    font-size: 26px;
+    margin-top: 48px;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.book-content h3 {
+    font-size: 20px;
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+
+.book-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.book-content ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+}
+
+.book-content li {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+/* Styling Visual Assets */
+.book-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 32px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+/* Blockquotes */
+.book-content blockquote {
+    border-left: 4px solid var(--accent-primary);
+    background-color: var(--accent-glow);
+    padding: 16px 24px;
+    margin: 24px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.book-content blockquote p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Horizontal line separator */
+.book-content hr {
+    border: none;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 40px 0;
+}
+
+/* Solidity Code Block Containers */
+.book-content pre {
+    position: relative;
+    background-color: var(--code-bg) !important;
+    border-radius: 10px;
+    padding: 20px !important;
+    margin: 24px 0 !important;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.book-content code {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.copy-code-btn:hover {
+    background-color: var(--accent-primary);
+}
+
+/* Inline Code Tag Styling */
+.book-content :not(pre) > code {
+    background-color: var(--code-bg);
+    color: var(--cyan-accent);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Table styling */
+.book-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+}
+
+.book-content th, .book-content td {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.book-content th {
+    background-color: var(--bg-sidebar);
+    font-weight: 700;
+}
+
+.book-content tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .mobile-close {
+        display: block;
+    }
+    
+    .mobile-toggle {
+        display: block;
+    }
+    
+    .top-nav {
+        padding: 0 24px;
+    }
+    
+    .reader-container {
+        padding: 40px 24px;
+    }
+}
+
+/* PDF Button styling */
+.pdf-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--accent-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 12px;
+}
+
+.pdf-btn:hover {
+    background-color: var(--cyan-accent);
+}
+
+/* Print CSS Styles */
+@media print {
+    body, html {
+        background: #fff !important;
+        color: #000 !important;
+        overflow: visible !important;
+        height: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .app-layout, #progressBar {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    /* Cover Page */
+    .print-cover {
+        page-break-after: always;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #0b0c10 !important;
+        color: #fff !important;
+        padding: 40px;
+        box-sizing: border-box;
+    }
+    
+    .print-cover img {
+        max-height: 55vh;
+        width: auto;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    .print-cover h1 {
+        font-size: 38px;
+        color: #fff !important;
+        margin-bottom: 8px;
+    }
+    
+    .print-cover h2 {
+        font-size: 20px;
+        color: #06b6d4 !important;
+        border: none !important;
+        margin-top: 5px !important;
+    }
+    
+    .print-author {
+        font-size: 18px;
+        margin-top: 30px;
+        font-weight: 600;
+        color: #9ca3af !important;
+    }
+    
+    /* Chapters */
+    .print-chapter {
+        page-break-after: always;
+        padding: 60px 40px;
+        max-width: 800px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    
+    .print-chapter h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #000 !important;
+    }
+    
+    .print-chapter h2 {
+        font-size: 24px;
+        margin-top: 40px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+        color: #000 !important;
+    }
+    
+    .print-chapter h3 {
+        font-size: 18px;
+        margin-top: 30px;
+        color: #000 !important;
+    }
+    
+    .print-chapter p, .print-chapter li {
+        color: #333 !important;
+        font-size: 15px;
+    }
+    
+    .print-chapter img {
+        max-width: 100%;
+        margin: 20px 0;
+        border-radius: 6px;
+    }
+    
+    .print-chapter pre {
+        background-color: #f5f5f5 !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+    }
+
+    .print-chapter code {
+        color: #000 !important;
+    }
+
+    .copy-code-btn {
+        display: none !important;
+    }
+    
+    /* Back Cover */
+    .print-backcover {
+        page-break-before: always;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #0b0c10 !important;
+        color: #fff !important;
+        padding: 40px;
+        box-sizing: border-box;
+    }
+    
+    .print-backcover h2 {
+        font-size: 28px;
+        color: #06b6d4 !important;
+        border: none !important;
+    }
+    
+    .print-backcover p {
+        max-width: 600px;
+        margin: 20px auto;
+        color: #9ca3af !important;
+        font-size: 16px;
+    }
+    
+    .print-backcover .back-footer {
+        margin-top: 50px;
+        font-size: 12px;
+        color: #4b5563 !important;
+    }
+}
+
+/* Hide print elements by default on screen */
+.print-only {
+    display: none;
+}
