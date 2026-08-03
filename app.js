@@ -146,25 +146,48 @@ async function loadChapter(id) {
             `;
         } else if (chap.id === "profile") {
             bookContentEl.innerHTML = `
-                <div class="web-profile-view" style="max-width: 800px; margin: 0 auto; padding-bottom: 30px;">
-                    <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center;">Author Profiles</h1>
-                    <div style="text-align: center; margin-bottom: 30px;">
-                        <img src="/assets/author_profiles.jpg" alt="Authors Portrait" style="max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color);">
-                    </div>
+                <div class="web-profile-view" style="max-width: 850px; margin: 0 auto; padding-bottom: 30px;">
+                    <h1 style="font-size: 32px; margin-bottom: 30px; text-align: center;">About the Authors</h1>
                     
-                    <div class="profiles-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
-                        <div class="profile-card" style="background: var(--bg-card); padding: 24px; border-radius: 10px; border: 1px solid var(--border-color);">
-                            <h2 style="font-size: 22px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 10px;">Kalyanjit Hatibaruah</h2>
-                            <p style="font-size: 15px; line-height: 1.6; color: var(--text-secondary);">
-                                Kalyanjit Hatibaruah is a technology leader, blockchain consultant, and academician with over two decades of experience in distributed systems, software architecture, and curriculum design. He has mentored thousands of IT students, founded innovative tech platforms, and led numerous enterprise Web3 integrations globally.
-                            </p>
+                    <div class="profiles-container" style="display: flex; flex-direction: column; gap: 40px; margin-top: 20px;">
+                        
+                        <!-- Kalyanjit Hatibaruah Profile Card -->
+                        <div class="profile-card-horizontal" style="display: flex; gap: 30px; background: var(--bg-card); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 0 0 200px; text-align: center; margin: 0 auto;">
+                                <img src="/assets/kalyanjit.jpg" alt="Kalyanjit Hatibaruah Portrait" style="width: 180px; height: 180px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            </div>
+                            <div style="flex: 1; min-width: 280px;">
+                                <h2 style="font-size: 24px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 8px;">Kalyanjit Hatibaruah</h2>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    <strong>Kalyanjit Hatibaruah</strong> is a globally recognized technology strategist, entrepreneur, author, and keynote speaker with over <strong>30 years of experience</strong> at the intersection of technology, business, and innovation. As the <strong>Chairman of Flugelsoft Group</strong>, he advises enterprises, startups, educational institutions, and governments on Artificial Intelligence, Blockchain, Web3, Quantum Computing, Digital Governance, and Digital Transformation.
+                                </p>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    An Electronics & Communication Engineer from <strong>NIT Kurukshetra</strong> with an MBA from <strong>Pune University</strong>, Kalyanjit has built multidisciplinary expertise spanning enterprise software, distributed systems, AI/ML, blockchain, tokenization, and emerging technologies. He is widely recognized for helping organizations translate cutting-edge technologies into practical business and governance solutions.
+                                </p>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    A sought-after international speaker, he has delivered keynote addresses, workshops, and panel discussions at universities, industry forums, and global conferences on AI, Web3, Blockchain, entrepreneurship, startup ecosystems, and digital public infrastructure. He also mentors startups through leading incubators, including T-Hub, Nirmaan (IIT Madras), IIMK LIVE, STPI, India Accelerator, and several international innovation programs.
+                                </p>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary);">
+                                    Kalyanjit is the co-author of books on <strong>Blockchain, Artificial Intelligence, and the Metaverse</strong> and is passionate about democratizing knowledge of emerging technologies. Through his writing, consulting, mentoring, and public speaking, he continues to inspire innovators, policymakers, business leaders, and students to harness technology for sustainable growth and societal impact.
+                                </p>
+                            </div>
                         </div>
-                        <div class="profile-card" style="background: var(--bg-card); padding: 24px; border-radius: 10px; border: 1px solid var(--border-color);">
-                            <h2 style="font-size: 22px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 10px;">Pratibha Das Hatibaruah</h2>
-                            <p style="font-size: 15px; line-height: 1.6; color: var(--text-secondary);">
-                                Pratibha Das Hatibaruah is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models.
-                            </p>
+
+                        <!-- Pratibha Das Hatibaruah Profile Card -->
+                        <div class="profile-card-horizontal" style="display: flex; gap: 30px; background: var(--bg-card); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); align-items: flex-start; flex-wrap: wrap;">
+                            <div style="flex: 0 0 200px; text-align: center; margin: 0 auto;">
+                                <div style="width: 180px; height: 180px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--cyan-accent) 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 48px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                </div>
+                            </div>
+                            <div style="flex: 1; min-width: 280px;">
+                                <h2 style="font-size: 24px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 8px;">Pratibha Das Hatibaruah</h2>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary);">
+                                    <strong>Pratibha Das Hatibaruah</strong> is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models. She is passionate about mentoring IT students and designing open-source learning curriculums for the next generation of Web3 builders.
+                                </p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             `;
@@ -417,18 +440,39 @@ async function downloadBookAsPdf() {
         fullBookHtml += `
             <div class="print-chapter" style="page-break-after: always; text-align: center;">
                 <h1 style="font-size: 32px; margin-bottom: 24px; color: #000 !important;">About the Authors</h1>
-                <img src="/assets/author_profiles.jpg" alt="Authors Portrait" style="max-height: 40vh; width: auto; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-                <div style="display: flex; gap: 30px; text-align: left; margin-top: 20px;">
-                    <div style="flex: 1; border-right: 1px solid #ccc; padding-right: 20px;">
-                        <h2 style="font-size: 20px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 5px;">Kalyanjit Hatibaruah</h2>
-                        <p style="font-size: 14px; line-height: 1.6; color: #333 !important;">
-                            Kalyanjit Hatibaruah is a technology leader, blockchain consultant, and academician with over two decades of experience in distributed systems, software architecture, and curriculum design. He has mentored thousands of IT students, founded innovative tech platforms, and led numerous enterprise Web3 integrations globally.
-                        </p>
+                
+                <!-- Kalyanjit Hatibaruah Profile Card -->
+                <div style="display: flex; gap: 20px; text-align: left; margin-bottom: 30px; page-break-inside: avoid;">
+                    <div style="flex: 0 0 150px; text-align: center;">
+                        <img src="/assets/kalyanjit.jpg" alt="Kalyanjit Hatibaruah Portrait" style="width: 130px; height: 130px; object-fit: cover; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                     <div style="flex: 1;">
-                        <h2 style="font-size: 20px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 5px;">Pratibha Das Hatibaruah</h2>
-                        <p style="font-size: 14px; line-height: 1.6; color: #333 !important;">
-                            Pratibha Das Hatibaruah is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models.
+                        <h2 style="font-size: 18px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 4px;">Kalyanjit Hatibaruah</h2>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important; margin-bottom: 8px;">
+                            <strong>Kalyanjit Hatibaruah</strong> is a globally recognized technology strategist, entrepreneur, author, and keynote speaker with over 30 years of experience at the intersection of technology, business, and innovation. As the Chairman of Flugelsoft Group, he advises enterprises, startups, educational institutions, and governments on AI, Blockchain, Web3, and Digital Transformation.
+                        </p>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important; margin-bottom: 8px;">
+                            An Electronics & Communication Engineer from NIT Kurukshetra with an MBA from Pune University, Kalyanjit has built multidisciplinary expertise spanning enterprise software, distributed systems, blockchain, tokenization, and emerging technologies.
+                        </p>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important;">
+                            He is a co-author of books on Blockchain, AI, and the Metaverse. He mentors startups through leading incubators including T-Hub, IIT Madras (Nirmaan), IIMK LIVE, and STPI, and continues to inspire innovators globally.
+                        </p>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+
+                <!-- Pratibha Das Hatibaruah Profile Card -->
+                <div style="display: flex; gap: 20px; text-align: left; page-break-inside: avoid;">
+                    <div style="flex: 0 0 150px; text-align: center;">
+                        <div style="width: 130px; height: 130px; border-radius: 8px; background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <h2 style="font-size: 18px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 4px;">Pratibha Das Hatibaruah</h2>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important;">
+                            <strong>Pratibha Das Hatibaruah</strong> is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models. She is passionate about mentoring IT students and designing open-source learning curriculums for the next generation of Web3 builders.
                         </p>
                     </div>
                 </div>
