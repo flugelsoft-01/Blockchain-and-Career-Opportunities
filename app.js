@@ -176,14 +176,21 @@ async function loadChapter(id) {
                         <!-- Pratibha Das Hatibaruah Profile Card -->
                         <div class="profile-card-horizontal" style="display: flex; gap: 30px; background: var(--bg-card); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); align-items: flex-start; flex-wrap: wrap;">
                             <div style="flex: 0 0 200px; text-align: center; margin: 0 auto;">
-                                <div style="width: 180px; height: 180px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--cyan-accent) 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 48px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                </div>
+                                <img src="/assets/pratibha.jpg" alt="Pratibha Das Hatibaruah Portrait" style="width: 180px; height: 180px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                             </div>
                             <div style="flex: 1; min-width: 280px;">
                                 <h2 style="font-size: 24px; margin-top: 0; color: var(--accent-primary); border: none; padding-bottom: 8px;">Pratibha Das Hatibaruah</h2>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    <strong>Pratibha Das Hatibaruah</strong> is a technology entrepreneur, author, educator, and public speaker specializing in Blockchain, Web3, Artificial Intelligence, and other emerging technologies. She is the Founder and Director of Flugelsoft, a technology company focused on digital innovation, technology consulting, and professional education.
+                                </p>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    Before embarking on her entrepreneurial journey, Pratibha built a successful career with leading technology companies, including <strong>Infosys</strong>, where she worked on enterprise technology solutions. She also gained extensive expertise as a Network Engineer, earning industry-recognized certifications such as <strong>Microsoft Certified Systems Engineer (MCSE)</strong> and **Cisco Certified Network Associate (CCNA)**.
+                                </p>
+                                <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+                                    Pratibha is the co-author of this book. She has also co-authored books on <strong>Artificial Intelligence</strong> and the <strong>Metaverse</strong>, reflecting her commitment to making emerging technologies accessible to a wider audience.
+                                </p>
                                 <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary);">
-                                    <strong>Pratibha Das Hatibaruah</strong> is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models. She is passionate about mentoring IT students and designing open-source learning curriculums for the next generation of Web3 builders.
+                                    A sought-after speaker and mentor, Pratibha regularly conducts workshops, corporate training programs, and university sessions on Blockchain, AI, Web3, digital transformation, and entrepreneurship. Her ability to translate complex technologies into practical business insights has established her as a respected voice in the emerging technology ecosystem.
                                 </p>
                             </div>
                         </div>
@@ -465,14 +472,18 @@ async function downloadBookAsPdf() {
                 <!-- Pratibha Das Hatibaruah Profile Card -->
                 <div style="display: flex; gap: 20px; text-align: left; page-break-inside: avoid;">
                     <div style="flex: 0 0 150px; text-align: center;">
-                        <div style="width: 130px; height: 130px; border-radius: 8px; background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </div>
+                        <img src="/assets/pratibha.jpg" alt="Pratibha Das Hatibaruah Portrait" style="width: 130px; height: 130px; object-fit: cover; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                     <div style="flex: 1;">
                         <h2 style="font-size: 18px; color: #6366f1 !important; border: none !important; margin-top: 0 !important; padding-bottom: 4px;">Pratibha Das Hatibaruah</h2>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important; margin-bottom: 8px;">
+                            <strong>Pratibha Das Hatibaruah</strong> is a technology entrepreneur, author, educator, and public speaker specializing in Blockchain, Web3, AI, and emerging tech. She is the Founder and Director of Flugelsoft, a digital innovation and professional education company.
+                        </p>
+                        <p style="font-size: 13px; line-height: 1.5; color: #333 !important; margin-bottom: 8px;">
+                            Before Flugelsoft, she worked with leading tech companies like <strong>Infosys</strong> and gained extensive expertise as a Network Engineer holding certifications like MCSE and CCNA.
+                        </p>
                         <p style="font-size: 13px; line-height: 1.5; color: #333 !important;">
-                            <strong>Pratibha Das Hatibaruah</strong> is an academic researcher, computer science educator, and author specializing in cryptography, smart contract security, and decentralized application design. Her research focuses on blockchain protocols, decentralized governance systems, and student-centric software engineering education models. She is passionate about mentoring IT students and designing open-source learning curriculums for the next generation of Web3 builders.
+                            Pratibha is the co-author of books on Blockchain, AI, and the Metaverse, and is a regular speaker/mentor conducting university and corporate training sessions.
                         </p>
                     </div>
                 </div>
