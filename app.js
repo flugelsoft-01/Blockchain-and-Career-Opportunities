@@ -7,6 +7,7 @@ let currentUser = null;
 const chapters = [
     { id: "cover", title: "Front Cover", isMeta: true },
     { id: "profile", title: "Author Profiles", isMeta: true },
+    { id: "copyright", title: "Copyright & Disclaimer", isMeta: true },
     { id: "01", title: "Chapter 1: The Trust Revolution & Why Blockchain is a Hot Career Choice", file: "chapter_01_trust_revolution_and_career.md" },
     { id: "02", title: "Chapter 2: Blockchain Fundamentals Made Easy", file: "chapter_02_blockchain_fundamentals.md" },
     { id: "03", title: "Chapter 3: Basics of Bitcoin, Ethereum, and Smart Contracts", file: "chapter_03_bitcoin_ethereum_smart_contracts.md" },
@@ -17,6 +18,7 @@ const chapters = [
     { id: "08", title: "Chapter 8: How Students Can Build a Strong Portfolio with Projects", file: "chapter_08_building_portfolio.md" },
     { id: "09", title: "Chapter 9: Job Search Strategies: Resumes, Interviews, and Career Growth", file: "chapter_09_job_search_strategies.md" },
     { id: "10", title: "Chapter 10: 6–12 Month Learning & Career Action Plan + Future Trends", file: "chapter_10_learning_action_plan_future_trends.md" },
+    { id: "glossary", title: "Glossary of Terms", isMeta: true },
     { id: "back", title: "Back Cover", isMeta: true }
 ];
 
@@ -195,6 +197,79 @@ async function loadChapter(id) {
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            `;
+        } else if (chap.id === "copyright") {
+            bookContentEl.innerHTML = `
+                <div class="web-copyright-view" style="max-width: 650px; margin: 0 auto; padding: 30px 20px; line-height: 1.8; color: var(--text-secondary);">
+                    <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center; color: var(--text-primary);">Copyright &amp; Disclaimer</h1>
+                    
+                    <p style="font-weight: 600; color: var(--text-primary); text-align: center; margin-bottom: 24px; font-size: 16px;">
+                        Blockchain &amp; Career Opportunities: A Student's Guide to Web3
+                    </p>
+                    
+                    <p>
+                        <strong>Copyright &copy; 2026 by Flugelsoft Lab.</strong> All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+                    </p>
+                    
+                    <p style="margin-top: 20px;">
+                        <strong>Publisher:</strong> Flugelsoft Lab Publishing Division<br>
+                        <strong>First Edition:</strong> 2026<br>
+                        <strong>ISBN:</strong> [Registration Pending]
+                    </p>
+                    
+                    <hr style="border: none; height: 1px; background-color: var(--border-color); margin: 30px 0;">
+                    
+                    <h3 style="color: var(--text-primary); font-size: 18px; margin-bottom: 10px;">Disclaimer</h3>
+                    <p style="font-size: 14px; line-height: 1.6;">
+                        The information provided in this guidebook is for educational and informational purposes only. Blockchain technologies, smart contracts, and cryptocurrencies involve significant financial and technical risks. The authors and Flugelsoft Lab do not warrant that the smart contracts or code examples provided in this book are secure or free from vulnerabilities. Nothing in this book constitutes investment, financial, tax, or legal advice. Readers are advised to conduct their own research and exercise caution when deploying code or committing capital to Web3 platforms.
+                    </p>
+                </div>
+            `;
+        } else if (chap.id === "glossary") {
+            bookContentEl.innerHTML = `
+                <div class="web-glossary-view" style="max-width: 800px; margin: 0 auto; padding-bottom: 30px;">
+                    <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center; color: var(--text-primary);">Glossary of Terms</h1>
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 30px; font-size: 15px;">Key concepts and terminology to help students navigate the Web3 landscape.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">Blockchain</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                A decentralized, distributed digital ledger that records transactions across many computers chronologically and immutably, secured by cryptographic hashing.
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">Smart Contract</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                Self-executing digital contracts with terms of agreement written directly into lines of code, residing and running autonomously on a blockchain network.
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">Consensus Mechanism</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                A protocol (e.g., Proof of Work, Proof of Stake) that allows distributed computer nodes on a blockchain network to agree on the valid state of the ledger.
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">Gas Fee</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                Transaction execution fees paid by users to blockchain validators or miners to cover the computing power required to process transactions and run smart contracts.
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">dApp (Decentralized Application)</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                Software applications that run on a peer-to-peer network or blockchain, combining a traditional frontend interface with decentralized smart contracts.
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <strong style="color: var(--accent-primary); font-size: 16px; display: block; margin-bottom: 6px;">ERC-20 Standard</strong>
+                            <p style="font-size: 14.5px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                                The technical standard for creating fungible tokens on the Ethereum blockchain, establishing a common set of API rules for token transfers and storage.
+                            </p>
+                        </div>
                     </div>
                 </div>
             `;
@@ -490,6 +565,34 @@ async function downloadBookAsPdf() {
             </div>
         `;
         
+        // A3. Add Copyright & Disclaimer Page (Print Mode)
+        fullBookHtml += `
+            <div class="print-chapter" style="page-break-after: always; padding: 40px; color: #000 !important; line-height: 1.6;">
+                <h1 style="font-size: 26px; text-align: center; margin-bottom: 24px; color: #000 !important; font-weight: 700; border-bottom: none !important;">Copyright &amp; Disclaimer</h1>
+                
+                <p style="font-weight: 600; text-align: center; margin-bottom: 24px; color: #000 !important; font-size: 14px;">
+                    Blockchain &amp; Career Opportunities: A Student's Guide to Web3
+                </p>
+                
+                <p style="font-size: 12.5px; color: #333 !important; text-align: justify; margin-bottom: 16px;">
+                    <strong>Copyright &copy; 2026 by Flugelsoft Lab.</strong> All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+                </p>
+                
+                <p style="font-size: 12.5px; color: #333 !important; margin-bottom: 30px;">
+                    <strong>Publisher:</strong> Flugelsoft Lab Publishing Division<br>
+                    <strong>First Edition:</strong> 2026<br>
+                    <strong>ISBN:</strong> [Registration Pending]
+                </p>
+                
+                <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+                
+                <h3 style="font-size: 14px; margin-bottom: 8px; color: #000 !important; font-weight: 700;">Disclaimer</h3>
+                <p style="font-size: 11px; line-height: 1.5; color: #444 !important; text-align: justify;">
+                    The information provided in this guidebook is for educational and informational purposes only. Blockchain technologies, smart contracts, and cryptocurrencies involve significant financial and technical risks. The authors and Flugelsoft Lab do not warrant that the smart contracts or code examples provided in this book are secure or free from vulnerabilities. Nothing in this book constitutes investment, financial, tax, or legal advice. Readers are advised to conduct their own research and exercise caution when deploying code or committing capital to Web3 platforms.
+                </p>
+            </div>
+        `;
+        
         for (const chap of chapters) {
             if (chap.isMeta) continue;
             const response = await fetch(`/chapters/${chap.file}`);
@@ -505,6 +608,53 @@ async function downloadBookAsPdf() {
                 </div>
             `;
         }
+        
+        // B2. Add Glossary of Terms Page (Print Mode)
+        fullBookHtml += `
+            <div class="print-chapter" style="page-break-after: always; padding: 40px; color: #000 !important; line-height: 1.6;">
+                <h1 style="font-size: 26px; text-align: center; margin-bottom: 20px; color: #000 !important; font-weight: 700; border-bottom: none !important;">Glossary of Terms</h1>
+                <p style="text-align: center; font-size: 13px; color: #444 !important; margin-bottom: 24px;">Key concepts and terminology to help students navigate the Web3 landscape.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                    <div style="page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">Blockchain</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            A decentralized, distributed digital ledger that records transactions across many computers chronologically and immutably, secured by cryptographic hashing.
+                        </p>
+                    </div>
+                    <div style="page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">Smart Contract</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            Self-executing digital contracts with terms of agreement written directly into code, running autonomously on a blockchain network.
+                        </p>
+                    </div>
+                    <div style="page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">Consensus Mechanism</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            A protocol (e.g., Proof of Work, Proof of Stake) that allows distributed computer nodes on a network to agree on the valid state of the ledger.
+                        </p>
+                    </div>
+                    <div style="page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">Gas Fee</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            Transaction execution fees paid by users to blockchain validators to cover the computing power required to process transactions and run contracts.
+                        </p>
+                    </div>
+                    <div style="page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">dApp (Decentralized Application)</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            Software applications that run on a peer-to-peer network or blockchain, combining a traditional frontend interface with decentralized smart contracts.
+                        </p>
+                    </div>
+                    <div style="page-break-inside: avoid; padding-bottom: 5px;">
+                        <strong style="color: #6366f1 !important; font-size: 14px;">ERC-20 Standard</strong>
+                        <p style="font-size: 12.5px; color: #333 !important; margin: 4px 0 0 0;">
+                            The technical standard for creating fungible tokens on Ethereum, establishing a common set of API rules for token transfers and storage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
         
         // C. Add Back Cover Page
         fullBookHtml += `
