@@ -301,8 +301,12 @@ async function loadChapter(id) {
         if (!response.ok) throw new Error("Failed to load chapter content.");
         const markdown = await response.text();
         
+        // Ensure image paths are absolute (starting with '/') to prevent broken links on nested SEO URLs
+        let parsedContent = markdown.replace(/(src=["'])assets\//g, '$1/assets/');
+        parsedContent = parsedContent.replace(/(!\[.*?\]\()assets\//g, '$1/assets/');
+        
         // Parse markdown using marked.js
-        bookContentEl.innerHTML = marked.parse(markdown);
+        bookContentEl.innerHTML = marked.parse(parsedContent);
         
         // Add Copy Button to code blocks and apply syntax highlighting
         setupCodeBlocks();
@@ -612,7 +616,9 @@ async function downloadBookAsPdf() {
             let markdown = await response.text();
             
             // Clean paths if needed, then parse markdown
-            let chapHtml = marked.parse(markdown);
+            let parsedMarkdown = markdown.replace(/(src=["'])assets\//g, '$1/assets/');
+            parsedMarkdown = parsedMarkdown.replace(/(!\[.*?\]\()assets\//g, '$1/assets/');
+            let chapHtml = marked.parse(parsedMarkdown);
             
             fullBookHtml += `
                 <div class="print-chapter">
