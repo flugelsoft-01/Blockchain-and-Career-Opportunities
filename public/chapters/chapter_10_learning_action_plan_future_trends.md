@@ -47,6 +47,11 @@ Fundamentals  -->  Solidity/Tools --> Portfolio/   -->  Job Applications/
     *   Join developer Discords and look for paid developer bounties.
     *   Practice mock interviews covering gas optimization and contract security.
 
+### Visualizing the 12-Month Web3 Roadmap
+To see the full transition timeline and core study topics laid out chronologically, review the detailed Roadmap Infographic below:
+
+![12-Month Web3 Developer Learning Roadmap](./assets/learning_roadmap_12months.jpg)
+
 ---
 
 ## 10.2 Future Trends Shaping Blockchain Careers

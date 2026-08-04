@@ -53,6 +53,11 @@ In Web3, community is everything. Most projects launch and coordinate using plat
 *   **What they do:** Moderate online forums, manage community events, coordinate DAO contributions, run marketing campaigns, and keep community members engaged.
 *   **Key Skills:** Exceptional communication, empathy, project coordination, and online event planning.
 
+### Visualizing the Web3 Career Ecosystem
+To see how these technical and business roles fit together in the industry, review the Web3 Career Map below:
+
+![Web3 Tech Ecosystem Career Map](./assets/web3_career_map.jpg)
+
 ---
 
 ## 🔑 Chapter Summary

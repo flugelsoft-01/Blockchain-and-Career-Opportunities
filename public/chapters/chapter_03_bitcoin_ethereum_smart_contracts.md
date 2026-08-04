@@ -68,6 +68,11 @@ Instead of paying a real-estate agent a high fee, you use a smart contract:
 
 The code acts as both the referee and the escrow agent. Once deployed, no one can stop it or change the rules.
 
+### Visualizing the Blockchain Transaction Lifecycle
+To understand how transactions are validated, consensus is reached, and smart contracts are executed on-chain, review the step-by-step transaction lifecycle below:
+
+![Blockchain Transaction Lifecycle](./assets/transaction_lifecycle.jpg)
+
 ---
 
 ## 🔑 Chapter Summary

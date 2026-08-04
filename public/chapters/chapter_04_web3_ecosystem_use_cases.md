@@ -4,6 +4,11 @@ Once developers realized they could build programmable code on blockchain networ
 
 In this chapter, we will look at the core building blocks of this ecosystem—DeFi, NFTs, and DAOs—and explore how major traditional industries are using blockchain to solve real-world problems.
 
+### Centralized Web2 vs. Decentralized Web3 Architecture
+To see how Web3 applications operate differently from the traditional apps you use daily, examine the structural contrast below:
+
+![Web2 Centralized vs Web3 Decentralized Mesh Network Architecture](./assets/web2_vs_web3_architecture.jpg)
+
 ---
 
 ## 4.1 The Building Blocks of Web3

@@ -62,6 +62,11 @@ Because blockchain is open source by nature (anyone can inspect a smart contract
 *   **Contribute to Open Source:** Find repositories of popular protocols (like Uniswap, OpenZeppelin, or Aave) and help fix minor bugs, update documentation, or add tests.
 *   **Document Everything:** Every project in your repository should have a stellar README explaining what the project is, what tools you used, and how to run it locally.
 
+### Visualizing the Web3 Developer Stack
+To see how these programming languages, wallets, local frameworks, and node infrastructure providers fit together into a unified developer stack, review the diagram below:
+
+![The Web3 Developer Stack](./assets/web3_developer_stack.jpg)
+
 ---
 
 ## 🔑 Chapter Summary
