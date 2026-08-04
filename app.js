@@ -172,6 +172,9 @@ async function loadChapter(id) {
                                 <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary);">
                                     Kalyanjit is the co-author of books on <strong>Blockchain, Artificial Intelligence, and the Metaverse</strong> and is passionate about democratizing knowledge of emerging technologies. Through his writing, consulting, mentoring, and public speaking, he continues to inspire innovators, policymakers, business leaders, and students to harness technology for sustainable growth and societal impact.
                                 </p>
+                                <a href="https://www.linkedin.com/in/kalyanjit" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; background: #0077b5; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13.5px; font-weight: 600; transition: background 0.2s;">
+                                    <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+                                </a>
                             </div>
                         </div>
 
@@ -194,6 +197,9 @@ async function loadChapter(id) {
                                 <p style="font-size: 14.5px; line-height: 1.6; color: var(--text-secondary);">
                                     A sought-after speaker and mentor, Pratibha regularly conducts workshops, corporate training programs, and university sessions on Blockchain, AI, Web3, digital transformation, and entrepreneurship. Her ability to translate complex technologies into practical business insights has established her as a respected voice in the emerging technology ecosystem.
                                 </p>
+                                <a href="https://www.linkedin.com/in/web3pratibha" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; background: #0077b5; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13.5px; font-weight: 600; transition: background 0.2s;">
+                                    <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+                                </a>
                             </div>
                         </div>
 
@@ -539,6 +545,9 @@ async function downloadBookAsPdf() {
                         <p style="font-size: 13px; line-height: 1.5; color: #333 !important;">
                             He is a co-author of books on Blockchain, AI, and the Metaverse. He mentors startups through leading incubators including T-Hub, IIT Madras (Nirmaan), IIMK LIVE, and STPI, and continues to inspire innovators globally.
                         </p>
+                        <div style="font-size: 12px; color: #0077b5; font-weight: 600; margin-top: 8px;">
+                            LinkedIn: linkedin.com/in/kalyanjit
+                        </div>
                     </div>
                 </div>
 
@@ -560,6 +569,9 @@ async function downloadBookAsPdf() {
                         <p style="font-size: 13px; line-height: 1.5; color: #333 !important;">
                             Pratibha is the co-author of books on Blockchain, AI, and the Metaverse, and is a regular speaker/mentor conducting university and corporate training sessions.
                         </p>
+                        <div style="font-size: 12px; color: #0077b5; font-weight: 600; margin-top: 8px;">
+                            LinkedIn: linkedin.com/in/web3pratibha
+                        </div>
                     </div>
                 </div>
             </div>
