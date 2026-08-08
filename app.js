@@ -1,7 +1,24 @@
-import { auth, provider, signInWithPopup, signOut } from "./firebase.js";
+import { auth, provider, signInWithPopup, signOut, db } from "./firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, setDoc, addDoc, collection, getDocs, query, orderBy, limit, serverTimestamp } from "firebase/firestore";
 
 let currentUser = null;
+
+// Helper function to log user activity to Firestore
+async function logActivity(action) {
+    if (!currentUser) return;
+    try {
+        await addDoc(collection(db, "activity"), {
+            uid: currentUser.uid,
+            email: currentUser.email,
+            displayName: currentUser.displayName || "Anonymous User",
+            action: action,
+            timestamp: serverTimestamp()
+        });
+    } catch (e) {
+        console.error("Failed to log activity:", e);
+    }
+}
 
 // 1. Chapter list definitions
 const chapters = [
@@ -19,7 +36,8 @@ const chapters = [
     { id: "09", title: "Chapter 9: Job Search Strategies: Resumes, Interviews, and Career Growth", file: "chapter_09_job_search_strategies.md" },
     { id: "10", title: "Chapter 10: 6–12 Month Learning & Career Action Plan + Future Trends", file: "chapter_10_learning_action_plan_future_trends.md" },
     { id: "glossary", title: "Glossary of Terms", isMeta: true },
-    { id: "back", title: "Back Cover", isMeta: true }
+    { id: "back", title: "Back Cover", isMeta: true },
+    { id: "admin", title: "Admin Panel", isMeta: true }
 ];
 
 let activeChapter = chapters[0];
@@ -59,6 +77,10 @@ window.addEventListener("DOMContentLoaded", () => {
 function renderChaptersList(list) {
     chaptersListEl.innerHTML = "";
     list.forEach(chap => {
+        if (chap.id === "admin" && (!currentUser || currentUser.email !== "kalyanjit@gmail.com")) {
+            return;
+        }
+        
         const li = document.createElement("li");
         li.id = `nav-${chap.id}`;
         if (chap.id === activeChapter.id) {
@@ -67,7 +89,7 @@ function renderChaptersList(list) {
         
         const a = document.createElement("a");
         a.textContent = chap.title;
-        a.href = chap.id === "cover" ? "/" : (chap.id === "profile" ? "/profile" : (chap.id === "back" ? "/back" : `/chapter/${chap.id}`));
+        a.href = chap.id === "cover" ? "/" : (chap.id === "profile" ? "/profile" : (chap.id === "back" ? "/back" : (chap.id === "admin" ? "/admin" : `/chapter/${chap.id}`)));
         a.addEventListener("click", (e) => {
             e.preventDefault();
             routeTo(chap.id);
@@ -126,6 +148,9 @@ async function loadChapter(id) {
     
     activeChapter = chap;
     topNavTitleEl.textContent = chap.title;
+    
+    // Log user activity
+    logActivity(`Viewed ${chap.title}`);
     
     // Highlight Active Sidebar Item
     document.querySelectorAll("#chaptersList li").forEach(li => li.classList.remove("active"));
@@ -290,6 +315,12 @@ async function loadChapter(id) {
                     <p style="font-size: 12px; color: var(--text-muted);">First Edition &copy; 2026. All Rights Reserved.</p>
                 </div>
             `;
+        } else if (chap.id === "admin") {
+            if (!currentUser || currentUser.email !== "kalyanjit@gmail.com") {
+                routeTo("cover");
+                return;
+            }
+            renderAdminPanel();
         }
         return;
     }
@@ -453,6 +484,7 @@ function routeTo(id) {
     let path = "/";
     if (id === "profile") path = "/profile";
     else if (id === "back") path = "/back";
+    else if (id === "admin") path = "/admin";
     else if (id !== "cover") path = `/chapter/${id}`;
     
     history.pushState({}, "", path);
@@ -466,6 +498,8 @@ function routePage() {
         id = "profile";
     } else if (path === "/back") {
         id = "back";
+    } else if (path === "/admin") {
+        id = "admin";
     } else if (path.startsWith("/chapter/")) {
         id = path.replace("/chapter/", "");
     }
@@ -486,11 +520,27 @@ onAuthStateChanged(auth, (user) => {
         userName.textContent = user.displayName || "Registered Reader";
         userAvatar.src = user.photoURL || "https://lh3.googleusercontent.com/a/default-user=s80";
         
+        // Save user details to Firestore and log sign-in activity
+        setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName || "Anonymous User",
+            photoURL: user.photoURL || "",
+            lastActive: serverTimestamp(),
+            isAdmin: user.email === "kalyanjit@gmail.com"
+        }, { merge: true }).then(() => {
+            logActivity("Logged In");
+        }).catch(err => console.error("Firestore user save error:", err));
+
+        // Re-render sidebar to show/hide Admin Panel link
+        renderChaptersList(chapters);
+
         // If current page was locked, trigger reload to render content
         const path = window.location.pathname;
         let id = "cover";
         if (path === "/profile") id = "profile";
         else if (path === "/back") id = "back";
+        else if (path === "/admin") id = "admin";
         else if (path.startsWith("/chapter/")) id = path.replace("/chapter/", "");
         
         // Reload page if it's currently showing locked gate screen
@@ -501,6 +551,9 @@ onAuthStateChanged(auth, (user) => {
         signInBtn.style.display = "flex";
         userInfoContainer.style.display = "none";
         
+        // Re-render sidebar to show/hide Admin Panel link
+        renderChaptersList(chapters);
+
         // Redirect to cover if user logged out while on protected content
         const path = window.location.pathname;
         if (path !== "/" && path !== "/cover") {
@@ -511,6 +564,7 @@ onAuthStateChanged(auth, (user) => {
 
 // 11. Compile Book & Generate PDF
 async function downloadBookAsPdf() {
+    logActivity("Downloaded PDF booklet");
     const originalText = downloadPdfBtn.innerHTML;
     downloadPdfBtn.disabled = true;
     downloadPdfBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Compiling Book...`;
@@ -711,4 +765,133 @@ async function downloadBookAsPdf() {
         downloadPdfBtn.innerHTML = originalText;
         printBookWrapper.innerHTML = ""; // Clear wrapper to save memory
     }
+}
+
+// 12. Admin Panel Rendering and Tab Actions
+async function renderAdminPanel() {
+    bookContentEl.innerHTML = `
+        <div class="web-admin-view" style="max-width: 850px; margin: 0 auto; padding-bottom: 30px;">
+            <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center; color: var(--text-primary);">Admin Dashboard</h1>
+            
+            <div class="admin-tabs" style="display: flex; gap: 15px; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                <button id="tabUsersBtn" class="tab-btn active" style="background: none; border: none; color: var(--accent-primary); font-weight: 600; font-size: 16px; cursor: pointer; padding: 5px 10px; border-bottom: 2px solid var(--accent-primary); transition: all 0.2s;">Registered Users</button>
+                <button id="tabActivityBtn" class="tab-btn" style="background: none; border: none; color: var(--text-secondary); font-weight: 600; font-size: 16px; cursor: pointer; padding: 5px 10px; transition: all 0.2s;">User Activity Log</button>
+            </div>
+            
+            <div id="adminTabContent" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; min-height: 300px; overflow-x: auto;">
+                <div style="text-align: center; padding: 40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; color: var(--accent-primary);"></i> Loading data...</div>
+            </div>
+        </div>
+    `;
+
+    const tabUsersBtn = document.getElementById("tabUsersBtn");
+    const tabActivityBtn = document.getElementById("tabActivityBtn");
+    const adminTabContent = document.getElementById("adminTabContent");
+
+    const loadUsers = async () => {
+        adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; color: var(--accent-primary);"></i> Loading users...</div>`;
+        try {
+            const usersSnap = await getDocs(query(collection(db, "users"), orderBy("lastActive", "desc")));
+            if (usersSnap.empty) {
+                adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-secondary);">No registered users found.</div>`;
+                return;
+            }
+            let html = `
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-primary);">
+                            <th style="padding: 12px 8px;">User</th>
+                            <th style="padding: 12px 8px;">Email</th>
+                            <th style="padding: 12px 8px;">Role</th>
+                            <th style="padding: 12px 8px;">Last Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            usersSnap.forEach(doc => {
+                const data = doc.data();
+                const date = data.lastActive ? new Date(data.lastActive.seconds * 1000).toLocaleString() : "N/A";
+                html += `
+                    <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                        <td style="padding: 12px 8px; display: flex; align-items: center; gap: 8px;">
+                            <img src="${data.photoURL || 'https://lh3.googleusercontent.com/a/default-user=s80'}" style="width: 24px; height: 24px; border-radius: 50%;">
+                            <span>${data.displayName || 'Guest User'}</span>
+                        </td>
+                        <td style="padding: 12px 8px;">${data.email}</td>
+                        <td style="padding: 12px 8px;"><span style="background: ${data.isAdmin ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)'}; color: ${data.isAdmin ? 'var(--accent-primary)' : 'var(--text-secondary)'}; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">${data.isAdmin ? 'Admin' : 'Reader'}</span></td>
+                        <td style="padding: 12px 8px; font-size: 13px;">${date}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            adminTabContent.innerHTML = html;
+        } catch (e) {
+            console.error("Error loading users:", e);
+            adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: #ef4444;">Failed to load users: ${e.message}</div>`;
+        }
+    };
+
+    const loadActivity = async () => {
+        adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; color: var(--accent-primary);"></i> Loading activities...</div>`;
+        try {
+            const actSnap = await getDocs(query(collection(db, "activity"), orderBy("timestamp", "desc"), limit(100)));
+            if (actSnap.empty) {
+                adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-secondary);">No recent activity logged.</div>`;
+                return;
+            }
+            let html = `
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-primary);">
+                            <th style="padding: 12px 8px;">User</th>
+                            <th style="padding: 12px 8px;">Activity</th>
+                            <th style="padding: 12px 8px;">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            actSnap.forEach(doc => {
+                const data = doc.data();
+                const date = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "N/A";
+                html += `
+                    <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                        <td style="padding: 12px 8px;">
+                            <div style="font-weight: 500;">${data.displayName || 'Guest'}</div>
+                            <div style="font-size: 12px; color: var(--text-muted);">${data.email}</div>
+                        </td>
+                        <td style="padding: 12px 8px;">${data.action}</td>
+                        <td style="padding: 12px 8px; font-size: 13px;">${date}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            adminTabContent.innerHTML = html;
+        } catch (e) {
+            console.error("Error loading activities:", e);
+            adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: #ef4444;">Failed to load activities: ${e.message}</div>`;
+        }
+    };
+
+    tabUsersBtn.addEventListener("click", () => {
+        tabUsersBtn.classList.add("active");
+        tabUsersBtn.style.color = "var(--accent-primary)";
+        tabUsersBtn.style.borderBottom = "2px solid var(--accent-primary)";
+        tabActivityBtn.classList.remove("active");
+        tabActivityBtn.style.color = "var(--text-secondary)";
+        tabActivityBtn.style.borderBottom = "none";
+        loadUsers();
+    });
+
+    tabActivityBtn.addEventListener("click", () => {
+        tabActivityBtn.classList.add("active");
+        tabActivityBtn.style.color = "var(--accent-primary)";
+        tabActivityBtn.style.borderBottom = "2px solid var(--accent-primary)";
+        tabUsersBtn.classList.remove("active");
+        tabUsersBtn.style.color = "var(--text-secondary)";
+        tabUsersBtn.style.borderBottom = "none";
+        loadActivity();
+    });
+
+    // Default load users
+    loadUsers();
 }
