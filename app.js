@@ -774,7 +774,7 @@ async function renderAdminPanel() {
             <h1 style="font-size: 32px; margin-bottom: 24px; text-align: center; color: var(--text-primary);">Admin Dashboard</h1>
             
             <div class="admin-tabs" style="display: flex; gap: 15px; margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-                <button id="tabUsersBtn" class="tab-btn active" style="background: none; border: none; color: var(--accent-primary); font-weight: 600; font-size: 16px; cursor: pointer; padding: 5px 10px; border-bottom: 2px solid var(--accent-primary); transition: all 0.2s;">Registered Users</button>
+                <button id="tabUsersBtn" class="tab-btn active" style="background: none; border: none; color: var(--accent-primary); font-weight: 600; font-size: 16px; cursor: pointer; padding: 5px 10px; border-bottom: 2px solid var(--accent-primary); transition: all 0.2s;">Authenticated Users</button>
                 <button id="tabActivityBtn" class="tab-btn" style="background: none; border: none; color: var(--text-secondary); font-weight: 600; font-size: 16px; cursor: pointer; padding: 5px 10px; transition: all 0.2s;">User Activity Log</button>
             </div>
             
