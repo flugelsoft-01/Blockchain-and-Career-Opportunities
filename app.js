@@ -791,11 +791,31 @@ async function renderAdminPanel() {
     const loadUsers = async () => {
         adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; color: var(--accent-primary);"></i> Loading users...</div>`;
         try {
-            const usersSnap = await getDocs(query(collection(db, "users"), orderBy("lastActive", "desc")));
+            let usersSnap;
+            try {
+                usersSnap = await getDocs(query(collection(db, "users"), orderBy("lastActive", "desc")));
+            } catch (err) {
+                console.warn("Firestore orderBy query failed, falling back to unsorted fetch:", err);
+                usersSnap = await getDocs(collection(db, "users"));
+            }
+            
             if (usersSnap.empty) {
                 adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-secondary);">No registered users found.</div>`;
                 return;
             }
+            
+            let usersList = [];
+            usersSnap.forEach(doc => {
+                usersList.push(doc.data());
+            });
+            
+            // In-memory sorting fallback (newest active first)
+            usersList.sort((a, b) => {
+                const timeA = a.lastActive ? (a.lastActive.seconds || 0) : 0;
+                const timeB = b.lastActive ? (b.lastActive.seconds || 0) : 0;
+                return timeB - timeA;
+            });
+            
             let html = `
                 <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px;">
                     <thead>
@@ -808,8 +828,7 @@ async function renderAdminPanel() {
                     </thead>
                     <tbody>
             `;
-            usersSnap.forEach(doc => {
-                const data = doc.data();
+            usersList.forEach(data => {
                 const date = data.lastActive ? new Date(data.lastActive.seconds * 1000).toLocaleString() : "N/A";
                 html += `
                     <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
@@ -834,11 +853,34 @@ async function renderAdminPanel() {
     const loadActivity = async () => {
         adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px;"><i class="fa-solid fa-spinner fa-spin" style="font-size: 24px; color: var(--accent-primary);"></i> Loading activities...</div>`;
         try {
-            const actSnap = await getDocs(query(collection(db, "activity"), orderBy("timestamp", "desc"), limit(100)));
+            let actSnap;
+            try {
+                actSnap = await getDocs(query(collection(db, "activity"), orderBy("timestamp", "desc"), limit(100)));
+            } catch (err) {
+                console.warn("Firestore orderBy query failed, falling back to unsorted fetch:", err);
+                actSnap = await getDocs(collection(db, "activity"));
+            }
+            
             if (actSnap.empty) {
                 adminTabContent.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-secondary);">No recent activity logged.</div>`;
                 return;
             }
+            
+            let actList = [];
+            actSnap.forEach(doc => {
+                actList.push(doc.data());
+            });
+            
+            // In-memory sorting fallback (newest first)
+            actList.sort((a, b) => {
+                const timeA = a.timestamp ? (a.timestamp.seconds || 0) : 0;
+                const timeB = b.timestamp ? (b.timestamp.seconds || 0) : 0;
+                return timeB - timeA;
+            });
+            
+            // Limit to 100 items
+            actList = actList.slice(0, 100);
+            
             let html = `
                 <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px;">
                     <thead>
@@ -850,8 +892,7 @@ async function renderAdminPanel() {
                     </thead>
                     <tbody>
             `;
-            actSnap.forEach(doc => {
-                const data = doc.data();
+            actList.forEach(data => {
                 const date = data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "N/A";
                 html += `
                     <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
